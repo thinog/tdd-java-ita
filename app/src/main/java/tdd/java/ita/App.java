@@ -3,12 +3,25 @@
  */
 package tdd.java.ita;
 
+import tdd.java.ita.camelcase.CamelCase;
+
+import java.security.InvalidParameterException;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        if(args.length != 1) {
+            System.out.println("Faltando argumento.");
+            return;
+        }
+
+        try {
+            CamelCase.converterCamelCase(args[0]).stream().forEach(palavra -> System.out.println(palavra));
+        } catch (InvalidParameterException ipe) {
+            System.out.printf("Erro: %s", ipe.getMessage());
+        }
     }
 }
